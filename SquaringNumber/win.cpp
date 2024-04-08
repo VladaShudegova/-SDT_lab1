@@ -46,8 +46,23 @@ Win::Win(QWidget *parent):QWidget(parent)
     hLayout->addWidget(frame);                                  //добавление рамки во внутрь компановщика
     hLayout->addLayout(vLayout2);                               //добавление вертикального компановщика, хранящего кнопки, в горизонтальный компановщик
 
+    begin();                                                    //обновление окна для новых данных
     QObject::connect(exitButton, &QPushButton::clicked, this, &QWidget::close); //по нажатию на кнопку вызывается существующий слот закрытия окна
+    QObject::connect(nextButton, &QPushButton::clicked, this, &Win::begin);
 
+}
+
+
+void Win::begin()
+{
+    inputEdit->clear();                                         //отчистка значений в поле ввода после предыдущего использывания
+    nextButton->setEnabled(false);                              //кнопка Следующее не активна
+    nextButton->setDefault(false);                              //кнопка "Следующее" не будет активироваться при нажатии клавиши Enter.
+    inputEdit->setEnabled(true);                                //поле ввода данных активно
+    outputLabel->setVisible(false);                             //метка для вывода не видима
+    outputEdit->setVisible(false);                              //поле вывода результата не видимо
+    outputEdit->setEnabled(false);                              //поле с выводом результата не активно
+    inputEdit->setFocus();                                      // курсор клавиатуры сразу устанавливается в поле ввода
 }
 
 
