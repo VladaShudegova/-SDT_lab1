@@ -20,7 +20,8 @@ Win::Win(QWidget *parent):QWidget(parent)
     inputLabel = new QLabel(QString::fromUtf8("Введите число:"), //добавление метки для ввода числа, русский язык менят кодировку
                             this);
     inputEdit = new QLineEdit("",this);                         //в строку для полученния входных данных ничего не записываем
-
+    StrValidator *v=new StrValidator(inputEdit);                // Создаем экземпляр пользовательского валидатора StrValidator
+    inputEdit->setValidator(v);                                 // Устанавливаем валидатор для поля ввода inputEdit
     outputLabel = new QLabel(QString::fromUtf8("Результат:"),    //добавление метки для вывода числа, русский язык менят кодировку
                              this);
     outputEdit = new QLineEdit("",this);                        //в строку для вывода результата ничего не записываем

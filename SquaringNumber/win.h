@@ -6,6 +6,8 @@
 #include <QFrame>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QValidator>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE  // Начало пространства имен Qt, которое содержит общие для всего фреймворка функции и структуры данных
 namespace Ui    // Внешнее пространство имен Ui используется для хранения классов, связанных с графическим интерфейсом, созданным в Qt Designer
@@ -41,4 +43,22 @@ public slots:
 //private:
   //  Ui::Win *ui;
 };
+
+class StrValidator:public QValidator // класс компонента проверки ввода
+{
+public:
+    StrValidator(QObject *parent):QValidator(parent){}
+    virtual State validate(QString &str,int &pos)const                  //параметры: строка, номер проверяемого элемента
+    {                                                                   //const указывает на то, что функция не меняет член-данных класса
+        auto msg = QMessageBox(
+            QMessageBox::Information,
+            "Сработал validate",
+            "Сработал validate",
+            QMessageBox::Ok
+            ); msg.exec();
+
+        return Acceptable; // метод всегда принимает вводимую строку
+    }
+};
+
 #endif // WIN_H
