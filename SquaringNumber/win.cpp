@@ -12,21 +12,21 @@
 
 Win::Win(QWidget *parent):QWidget(parent)
 {
-    codec = QTextCodec::codecForName("Windows-1251");           //добавление таблицы кодов русского языка 1251
+    codec = QTextCodec::codecForName("UTF-8");           //добавление таблицы кодов русского языка 1251
     setWindowTitle(codec->toUnicode("Возведение в квадрат"));   //добавление заголовка приложения, русский язык меняет кодировку на Unicode
     frame = new QFrame(this);                                   //инициализация рамки в данном окне
     frame->setFrameShadow(QFrame::Raised);                      // устанавливаем тип тени рамки(приподнятая)
     frame->setFrameShape(QFrame::Panel);                        //установка формы рамки(панель)
-    inputLabel = new QLabel(codec->toUnicode("Введите число:"), //добавление метки для ввода числа, русский язык менят кодировку
+    inputLabel = new QLabel(QString::fromUtf8("Введите число:"), //добавление метки для ввода числа, русский язык менят кодировку
                             this);
     inputEdit = new QLineEdit("",this);                         //в строку для полученния входных данных ничего не записываем
 
-    outputLabel = new QLabel(codec->toUnicode("Результат:"),    //добавление метки для вывода числа, русский язык менят кодировку
+    outputLabel = new QLabel(QString::fromUtf8("Результат:"),    //добавление метки для вывода числа, русский язык менят кодировку
                              this);
     outputEdit = new QLineEdit("",this);                        //в строку для вывода результата ничего не записываем
-    nextButton = new QPushButton(codec->toUnicode("Следующее"), //инициализируем кнопку, меняя русскму названию кодировку
+    nextButton = new QPushButton(QString::fromUtf8("Следующее"), //инициализируем кнопку, меняя русскму названию кодировку
                                  this);
-    exitButton = new QPushButton(codec->toUnicode("Выход"),     //инициализируем кнопку, меняя русскму названию кодировку
+    exitButton = new QPushButton(QString::fromUtf8("Выход"),     //инициализируем кнопку, меняя русскму названию кодировку
                                  this);
 
     // компоновка приложения
