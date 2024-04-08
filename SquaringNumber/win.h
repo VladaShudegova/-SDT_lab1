@@ -19,8 +19,8 @@ class Win : public QWidget
     Q_OBJECT    //макрос Qt, обеспечивающий корректное создание сигналов и слотов
 
 protected:
-    QTextCodec *codec;      // Перекодировщик текста
-    QFrame *frame; // Рамка окна
+    QTextCodec *codec;      // Перекодировщик текста(русификация интерфейса)
+    QFrame *frame; // Рамка для выделения(графического) областиввода данных
     QLabel *inputLabel; // Метка для поля ввода
     QLineEdit *inputEdit; // строчный редактор ввода
     QLabel *outputLabel; // Метка для поля вывода
@@ -36,7 +36,7 @@ public:
 
 public slots:
     void begin(); // метод начальной настройки интерфейса
-    void calc(); // метод реализации вычислений
+    void calc(); // метод реализации вычислений(возведения в квадрат введенного числа)
 
 //private:
   //  Ui::Win *ui;
