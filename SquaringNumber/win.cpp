@@ -50,7 +50,7 @@ Win::Win(QWidget *parent):QWidget(parent)
     begin();                                                    //обновление окна для новых данных
     QObject::connect(exitButton, &QPushButton::clicked, this, &QWidget::close); //по нажатию на кнопку вызывается существующий слот закрытия окна
     QObject::connect(nextButton, &QPushButton::clicked, this, &Win::begin);
-
+    QObject::connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc);
 }
 
 
@@ -66,7 +66,33 @@ void Win::begin()
     inputEdit->setFocus();                                      // курсор клавиатуры сразу устанавливается в поле ввода
 }
 
-
+void Win::calc()
+{
+    bool Ok=true; float r,a;                                    // Параметр &Ok в то же время предоставляет информацию о том, успешно ли прошла операция конвертации.
+    QString str=inputEdit->text();                              //сохраняем считанные данные в строку str
+    a=str.toDouble(&Ok);                                        //преверка, что в строке было действительно число, сохраняем в переменную а
+    if (Ok)                                                     // Код, который выполняется, если конвертация прошла успешно
+    {
+        r=a*a;                                                  // квадрат числа
+        str.setNum(r);                                          // в строку записываем результат
+        outputEdit->setText(str);                               // резултат выводим в строку вывода
+        inputEdit->setEnabled(false);                           // СТРОКА ВВОДА НЕ АКТИВНА
+        outputLabel->setVisible(true);                          //метка вывода данных становится видима
+        outputEdit->setVisible(true);                           // резултат видим
+        nextButton->setDefault(true);                           //кнопка Следующий может активировтаься по нажатию на клавишу Enter
+        nextButton->setEnabled(true);                           //кнопка может быть нажата
+        nextButton->setFocus();                                 //курсор клавиатуры указывает на кнопку Следующий
+    }
+    else                                                        // Код, который выполняется, если конвертация не удалась
+        if (!str.isEmpty())
+        {
+            QMessageBox msgBox(QMessageBox::Information,
+                               QString::fromUtf8("Возведение в квадрат."),
+                               QString::fromUtf8("Введено неверное значение."),
+                               QMessageBox::Ok);
+        msgBox.exec();
+    }
+}
 Win::~Win()
 {
     //delete ui;

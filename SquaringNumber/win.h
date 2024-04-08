@@ -38,7 +38,7 @@ public:
 
 public slots:
     void begin(); // метод начальной настройки интерфейса
-//    void calc(); // метод реализации вычислений(возведения в квадрат введенного числа)
+    void calc(); // метод реализации вычислений(возведения в квадрат введенного числа)
 
 //private:
   //  Ui::Win *ui;
@@ -50,14 +50,16 @@ public:
     StrValidator(QObject *parent):QValidator(parent){}
     virtual State validate(QString &str,int &pos)const                  //параметры: строка, номер проверяемого элемента
     {                                                                   //const указывает на то, что функция не меняет член-данных класса
-        auto msg = QMessageBox(
-            QMessageBox::Information,
-            "Сработал validate",
-            "Сработал validate",
-            QMessageBox::Ok
-            ); msg.exec();
-
+        //        auto msg = QMessageBox(
+        //            QMessageBox::Information,
+        //            "Сработал validate",
+        //            "",
+        //            QMessageBox::Ok
+        //            ); msg.exec();
         return Acceptable; // метод всегда принимает вводимую строку
+
+
+
     }
 };
 
