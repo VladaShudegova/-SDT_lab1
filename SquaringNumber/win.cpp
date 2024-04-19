@@ -2,7 +2,7 @@
 #include <QTextCodec>
 #include <QVBoxLayout>
 //#include "ui_win.h"
-
+using std::nothrow;
 //Win::Win(QWidget *parent)
 //    : QWidget(parent)
 //    , ui(new Ui::Win)
@@ -14,22 +14,26 @@ Win::Win(QWidget *parent):QWidget(parent)
 {
     codec = QTextCodec::codecForName("UTF-8");           //добавление таблицы кодов русского языка 1251
     setWindowTitle(codec->toUnicode("Возведение в квадрат"));   //добавление заголовка приложения, русский язык меняет кодировку на Unicode
-    frame = new QFrame(this);                                   //инициализация рамки в данном окне
+    frame = new(nothrow) QFrame(this);                                   //инициализация рамки в данном окне
     frame->setFrameShadow(QFrame::Raised);                      // устанавливаем тип тени рамки(приподнятая)
     frame->setFrameShape(QFrame::Panel);                        //установка формы рамки(панель)
-    inputLabel = new QLabel(QString::fromUtf8("Введите число:"), //добавление метки для ввода числа, русский язык менят кодировку
+    inputLabel = new(nothrow) QLabel(QString::fromUtf8("Введите число:"), //добавление метки для ввода числа, русский язык менят кодировку
                             this);
-    inputEdit = new QLineEdit("",this);                         //в строку для полученния входных данных ничего не записываем
-    StrValidator *v=new StrValidator(inputEdit);                // Создаем экземпляр пользовательского валидатора StrValidator
+    inputEdit = new(nothrow) QLineEdit("",this);                         //в строку для полученния входных данных ничего не записываем
+    StrValidator *v=new(nothrow) StrValidator(inputEdit);                // Создаем экземпляр пользовательского валидатора StrValidator
     inputEdit->setValidator(v);                                 // Устанавливаем валидатор для поля ввода inputEdit
-    outputLabel = new QLabel(QString::fromUtf8("Результат:"),    //добавление метки для вывода числа, русский язык менят кодировку
+    outputLabel = new(nothrow) QLabel(QString::fromUtf8("Результат:"),    //добавление метки для вывода числа, русский язык менят кодировку
                              this);
-    outputEdit = new QLineEdit("",this);                        //в строку для вывода результата ничего не записываем
-    nextButton = new QPushButton(QString::fromUtf8("Следующее"), //инициализируем кнопку, меняя русскму названию кодировку
+    outputEdit = new(nothrow) QLineEdit("",this);                        //в строку для вывода результата ничего не записываем
+    nextButton = new(nothrow) QPushButton(QString::fromUtf8("Следующее"), //инициализируем кнопку, меняя русскму названию кодировку
                                  this);
-    exitButton = new QPushButton(QString::fromUtf8("Выход"),     //инициализируем кнопку, меняя русскму названию кодировку
+    exitButton = new(nothrow) QPushButton(QString::fromUtf8("Выход"),     //инициализируем кнопку, меняя русскму названию кодировку
                                  this);
 
+    //exitButton = nullptr;
+
+    if(frame != nullptr && inputLabel != nullptr && inputEdit != nullptr && outputLabel != nullptr && outputEdit != nullptr &&
+        nextButton != nullptr && nextButton != nullptr && exitButton != nullptr){
     // компоновка приложения
     QVBoxLayout *vLayout1 = new QVBoxLayout(frame);             //инициализируем вертикальный компановщик внутри рамки
     vLayout1->addWidget(inputLabel);                            //добавляем в данный компановщик метку ввода данных
@@ -48,9 +52,10 @@ Win::Win(QWidget *parent):QWidget(parent)
     hLayout->addLayout(vLayout2);                               //добавление вертикального компановщика, хранящего кнопки, в горизонтальный компановщик
 
     begin();                                                    //обновление окна для новых данных
-    QObject::connect(exitButton, &QPushButton::clicked, this, &QWidget::close); //по нажатию на кнопку вызывается существующий слот закрытия окна
-    QObject::connect(nextButton, &QPushButton::clicked, this, &Win::begin);
-    QObject::connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc);
+    QObject::connect(exitButton, &QPushButton::clicked, this, &QWidget::close, Qt::UniqueConnection); //по нажатию на кнопку вызывается существующий слот закрытия окна
+    QObject::connect(nextButton, &QPushButton::clicked, this, &Win::begin, Qt::UniqueConnection);
+    QObject::connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc, Qt::UniqueConnection);     //привязываем ОДИН слот к ОДНОМУ сигналу
+    }
 }
 
 
