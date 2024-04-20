@@ -1,6 +1,7 @@
 #include "win.h"
 #include <QTextCodec>
 #include <QVBoxLayout>
+#include <QtDebug>>
 //#include "ui_win.h"
 using std::nothrow;
 //Win::Win(QWidget *parent)
@@ -78,7 +79,22 @@ void Win::calc()
     a=str.toDouble(&Ok);                                        //преверка, что в строке было действительно число, сохраняем в переменную а
     if (Ok)                                                     // Код, который выполняется, если конвертация прошла успешно
     {
+
+
         r=a*a;                                                  // квадрат числа
+        if(!qIsFinite(r))
+        {
+
+
+                QMessageBox msgBox(QMessageBox::Information,
+                                   QString::fromUtf8("Возведение в квадрат."),
+                                   QString::fromUtf8("Переполнение float"),
+                                   QMessageBox::Ok);
+                 msgBox.exec();
+                inputEdit->clear();
+
+
+        }
         str.setNum(r);                                          // в строку записываем результат
         outputEdit->setText(str);                               // резултат выводим в строку вывода
         inputEdit->setEnabled(false);                           // СТРОКА ВВОДА НЕ АКТИВНА
@@ -87,6 +103,9 @@ void Win::calc()
         nextButton->setDefault(true);                           //кнопка Следующий может активировтаься по нажатию на клавишу Enter
         nextButton->setEnabled(true);                           //кнопка может быть нажата
         nextButton->setFocus();                                 //курсор клавиатуры указывает на кнопку Следующий
+
+
+
     }
     else                                                        // Код, который выполняется, если конвертация не удалась
         if (!str.isEmpty())
