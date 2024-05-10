@@ -79,12 +79,9 @@ void Win::calc()
     a=str.toDouble(&Ok);                                        //преверка, что в строке было действительно число, сохраняем в переменную а
     if (Ok)                                                     // Код, который выполняется, если конвертация прошла успешно
     {
-
-
         r=a*a;                                                  // квадрат числа
         if(!qIsFinite(r))
         {
-
 
                 QMessageBox msgBox(QMessageBox::Information,
                                    QString::fromUtf8("Возведение в квадрат."),
