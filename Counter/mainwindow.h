@@ -11,6 +11,7 @@ QT_END_NAMESPACE
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include <limits.h>
 
 
 
@@ -36,12 +37,19 @@ public slots:
     void add_one(){
         QString str = text(); //свойство text() содержит текст  line edit
         int r = str.toInt();
-        if(r !=0 && r % 5 == 0){    //проверка на новое нажатие и на серию из 5 нажатий
-            emit tick_signal();
+
+        if(r < INT_MAX){
+            r++;
+            if(r !=0 && r % 5 == 0){    //проверка на новое нажатие и на серию из 5 нажатий
+                emit tick_signal();
+                }
         }
-        r++;
+        else{
+            r = 0;
+        }
         str.setNum(r);  //перевод числа в строку
         setText(str);   //устанавливает текст виджета QLineEdit равным строке str, обновляя отображаемое содержимое этого виджета.
+
     }
 };
 
