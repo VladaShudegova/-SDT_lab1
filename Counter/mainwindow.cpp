@@ -11,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent):
     label2 = new QLabel(codec->toUnicode("Счет по 5"), this);
     edit1 = new Counter("0", this);
     edit2 = new Counter("0", this);
+
+    edit1->setReadOnly(true);
+    edit2->setReadOnly(true);
+
     calcbutton = new QPushButton("+1", this);
     exitbutton = new QPushButton(codec->toUnicode("Выход"), this);
 
