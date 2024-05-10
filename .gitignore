@@ -10,6 +10,9 @@
 *.dll
 *.dylib
 
+SquaringNumber/
+build-SquaringNumber-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
