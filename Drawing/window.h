@@ -1,21 +1,23 @@
 #ifndef WINDOW_H
 #define WINDOW_H
+#include "area.h"
+#include <QPushButton>
 
 #include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class window; }
-QT_END_NAMESPACE
 
-class window : public QMainWindow
+
+class window : public QWidget
 {
-    Q_OBJECT
 
-public:
-    window(QWidget *parent = nullptr);
-    ~window();
+    protected:
+        QTextCodec *codec;
+        Area *area;
+        QPushButton *btn;
 
-private:
-    Ui::window *ui;
+    public:
+        window();
+
+
 };
 #endif // WINDOW_H
