@@ -9,7 +9,7 @@
 
 class window : public QWidget
 {
-        Q_OBJECT
+
     protected:
         QTextCodec *codec;
         Area *area;

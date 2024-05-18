@@ -13,6 +13,7 @@ public:
     Figura(int X, int Y, int Halflen):
         x(X), y(Y), halflen(Halflen){}
     void move(float Alpha, QPainter *Painter);
+    virtual ~Figura(){}
 };
 
 class MyLine: public Figura
@@ -22,6 +23,7 @@ protected:
 public:
     MyLine(int x, int y, int halflen):
         Figura(x,y,halflen){}
+    virtual ~MyLine(){}
 };
 
 
@@ -32,6 +34,7 @@ protected:
 public:
     MyRect(int x, int y, int halflen):
         Figura(x, y, halflen){}
+    virtual ~MyRect(){}
 };
 
 #endif // FIGURA_H

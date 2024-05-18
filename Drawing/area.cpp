@@ -1,12 +1,16 @@
 #include "area.h"
 #include <QTimerEvent>
+using std::nothrow;
 
 Area::Area(QWidget *parent): QWidget(parent)
 {
     this->setFixedSize(QSize(300,200)); //(w,h)
-    myline = new MyLine(80, 100,50);
-    myrect = new MyRect(220,100,50);        //(,parent)
-    alpha = 0;
+    myline = new(nothrow) MyLine(80, 100,50);
+    myrect = new(nothrow) MyRect(220,100,50);        //(,parent)
+    if(myline != nullptr && myrect != nullptr)
+    {
+        alpha = 0;
+    }
 }
 
 void Area::showEvent(QShowEvent *)    // для сохранения сигнатуры вызываемого события

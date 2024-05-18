@@ -8,8 +8,12 @@ window::window(){
     area = new Area(this);
     btn = new QPushButton(codec->toUnicode("Завершить"), this);
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(area);
-    layout->addWidget(btn);
-    QObject::connect(btn, &QPushButton::clicked, this, &QWidget::close);
+
+    if(area != nullptr && btn != nullptr && layout != nullptr)
+    {
+        layout->addWidget(area);
+        layout->addWidget(btn);
+        QObject::connect(btn, &QPushButton::clicked, this, &QWidget::close);
+    }
 }
 

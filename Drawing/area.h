@@ -1,7 +1,7 @@
 #ifndef AREA_H
 #define AREA_H
 
-#include <figura.h>
+#include "figura.h"
 #include <QWidget>
 
 class Area: public QWidget
